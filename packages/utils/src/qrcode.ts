@@ -12,6 +12,27 @@ export interface QRCodeOptions {
 
 export type QRType = 'TEXT' | 'URL' | 'EMAIL' | 'PHONE' | 'SMS' | 'WHATSAPP' | 'TELEGRAM' | 'WIFI' | 'BANK' | 'YOUTUBE' | 'INSTAGRAM' | 'TIKTOK' | 'LINKEDIN' | 'GITHUB' | 'FILE';
 
+export interface QREmailData {
+  email: string;
+  subject?: string;
+  body?: string;
+}
+
+export interface QRWifiData {
+  ssid: string;
+  password?: string;
+  encryption?: 'WEP' | 'WPA' | 'WPA2' | 'nopass';
+  hidden?: boolean;
+}
+
+export interface QRBankData {
+  bankName: string;
+  accountNumber: string;
+  accountName: string;
+  amount?: number | string;
+  description?: string;
+}
+
 export interface QRSmsData {
   phone: string;
   message: string;
@@ -172,11 +193,13 @@ export function formatPhoneQR(phone: string): string {
  * Format WiFi data for QR code
  */
 export function formatWifiQR(data: QRWifiData): string {
-  const { ssid, password, encryption, hidden } = data;
+  const { ssid, password = '', encryption = 'WPA', hidden } = data;
   const hiddenFlag = hidden ? 'true' : 'false';
-  
+  const escapedSsid = ssid.replace(/([\\;",:])/g, '\\$1');
+  const escapedPassword = password.replace(/([\\;",:])/g, '\\$1');
+
   // WiFi QR format: WIFI:T:WPA;S:ssid;P:password;H:false;;
-  return `WIFI:T:${encryption};S:${ssid};P:${password};H:${hiddenFlag};;`;
+  return `WIFI:T:${encryption};S:${escapedSsid};P:${escapedPassword};H:${hiddenFlag};;`;
 }
 
 /**

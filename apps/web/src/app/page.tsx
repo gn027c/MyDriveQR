@@ -4,7 +4,7 @@ import { useSession, signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { Button } from '@qr-uploader/ui';
-import { QrCode, Upload, Shield, LogIn, FileText, Image, Video } from 'lucide-react';
+import { QrCode, Upload, Shield, LogIn, FileText, Image as ImageIcon, Video } from 'lucide-react';
 
 export default function HomePage() {
   const { data: session, status } = useSession();
@@ -102,7 +102,7 @@ export default function HomePage() {
                 <span className="text-xs text-gray-700">Documents</span>
               </div>
               <div className="flex flex-col items-center p-3 bg-gray-50 rounded-lg">
-                <Image className="h-6 w-6 text-gray-600 mb-2" />
+                <ImageIcon className="h-6 w-6 text-gray-600 mb-2" />
                 <span className="text-xs text-gray-700">Images</span>
               </div>
               <div className="flex flex-col items-center p-3 bg-gray-50 rounded-lg">

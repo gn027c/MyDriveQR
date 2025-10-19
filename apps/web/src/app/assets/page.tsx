@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { signOut } from 'next-auth/react';
 import { Database, RefreshCw, Search, QrCode, ExternalLink, Trash2, Copy } from 'lucide-react';
@@ -296,11 +297,13 @@ export default function AssetsPage() {
                     <div key={asset.id} className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
                       <div className="flex flex-col gap-4 md:flex-row md:items-start">
                         <div className="flex flex-col items-center gap-3 md:w-48 md:items-start">
-                          <div className="aspect-square w-40 overflow-hidden rounded-md border border-gray-200 bg-gray-50">
-                            <img
+                          <div className="relative aspect-square w-40 overflow-hidden rounded-md border border-gray-200 bg-gray-50">
+                            <Image
                               src={asset.qrImage}
                               alt={`QR ${asset.id}`}
-                              className="h-full w-full object-contain"
+                              fill
+                              sizes="160px"
+                              className="object-contain"
                               loading="lazy"
                             />
                           </div>

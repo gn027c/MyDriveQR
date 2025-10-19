@@ -17,5 +17,13 @@ export type {
   QRType, 
   QREmailData, 
   QRWifiData, 
-  QRBankData 
+  QRBankData, 
+  QRSmsData,
+  QRWhatsAppData,
+  QRTelegramData,
+  QRYouTubeData,
+  QRInstagramData,
+  QRTikTokData,
+  QRLinkedInData,
+  QRGithubData
 } from './qrcode';

@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useState } from 'react';
 import { QrCode, Download, Plus } from 'lucide-react';
 import { Button, Card, CardContent, CardHeader, CardTitle } from '@qr-uploader/ui';
@@ -316,13 +317,14 @@ export default function DashboardPage() {
               {generatedQR ? (
                 <div className="space-y-4">
                   <div className="flex justify-center">
-                    <div className="p-4 bg-white border-2 border-gray-200 rounded-lg">
-                      <img
+                    <div className="relative h-64 w-64 bg-white border-2 border-gray-200 rounded-lg">
+                      <Image
                         src={generatedQR.qrImage}
                         alt="QR code"
-                        width={256}
-                        height={256}
-                        className="rounded"
+                        fill
+                        sizes="256px"
+                        className="rounded object-contain"
+                        priority
                       />
                     </div>
                   </div>

@@ -180,7 +180,7 @@ export default function HistoryPage() {
                 <span className="font-semibold text-gray-900">Hoạt động gần nhất:</span>{' '}
                 {activities.length > 0 ? new Date(activities[0].timestamp).toLocaleString() : 'Chưa có dữ liệu'}
               </p>
-              <p className="text-xs text-gray-400">Hiển thị tối đa {offset} mục đã tải. Sử dụng "Tải thêm" để xem nhiều hơn.</p>
+              <p className="text-xs text-gray-400">Hiển thị tối đa {offset} mục đã tải. Sử dụng &quot;Tải thêm&quot; để xem nhiều hơn.</p>
             </CardContent>
           </Card>
         </section>
