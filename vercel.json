@@ -3,9 +3,10 @@
   "devCommand": "pnpm turbo run dev --filter=web^...",
   "installCommand": "pnpm install",
   "framework": "nextjs",
+  "rootDirectory": "/",
   "regions": ["iad1"],
   "functions": {
-    "apps/web/src/app/api/**/*.ts": {
+    "src/app/api/**/*.ts": {
       "maxDuration": 60,
       "memory": 1024
     }
