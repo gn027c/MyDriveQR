@@ -38,6 +38,7 @@ lerna-debug.log*
 *.swo
 *~
 .DS_Store
+.windsurf
 
 # TypeScript
 *.tsbuildinfo
