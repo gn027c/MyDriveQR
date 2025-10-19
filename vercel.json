@@ -1,8 +1,9 @@
 {
-  "buildCommand": "pnpm turbo run build --filter=web^...",
-  "devCommand": "pnpm turbo run dev --filter=web^...",
-  "installCommand": "pnpm install",
   "framework": "nextjs",
+  "rootDirectory": "apps/web",
+  "installCommand": "pnpm install",
+  "buildCommand": "pnpm build",
+  "outputDirectory": ".next",
   "regions": ["iad1"],
   "functions": {
     "src/app/api/**/*.ts": {
