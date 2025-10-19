@@ -3,7 +3,6 @@
   "devCommand": "pnpm turbo run dev --filter=web^...",
   "installCommand": "pnpm install",
   "framework": "nextjs",
-  "outputDirectory": "apps/web/.next",
   "regions": ["iad1"],
   "functions": {
     "apps/web/src/app/api/**/*.ts": {
