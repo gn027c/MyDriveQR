@@ -1,0 +1,26 @@
+{
+  "name": "@qr-uploader/utils",
+  "version": "1.0.0",
+  "private": true,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "lint": "eslint \"src/**/*.ts\"",
+    "type-check": "tsc --noEmit",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "googleapis": "^130.0.0",
+    "qrcode": "^1.5.3"
+  },
+  "devDependencies": {
+    "@qr-uploader/typescript-config": "workspace:*",
+    "@types/node": "^20.10.6",
+    "@types/qrcode": "^1.5.5",
+    "@typescript-eslint/eslint-plugin": "^8.46.1",
+    "@typescript-eslint/parser": "^8.46.1",
+    "typescript": "^5.3.3"
+  }
+}

@@ -1,0 +1,174 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model ActivityLog {
+  id          String          @id @default(cuid())
+  userEmail   String
+  action      ActivityAction
+  description String          @db.Text
+  assetId     String?
+  metadata    Json?
+  level       LogLevel        @default(INFO)
+  createdAt   DateTime        @default(now())
+
+  user        User?           @relation(fields: [userEmail], references: [email], onDelete: SetNull)
+  asset       QRAsset?        @relation(fields: [assetId], references: [id], onDelete: SetNull)
+
+  @@index([userEmail, createdAt])
+  @@index([action])
+  @@index([assetId])
+}
+
+model DriveSyncState {
+  id            String       @id @default(cuid())
+  assetId       String       @unique
+  status        DriveStatus  @default(OK)
+  lastCheckedAt DateTime
+  note          String?
+  metadata      Json?
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+
+  asset         QRAsset      @relation(fields: [assetId], references: [id], onDelete: Cascade)
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String?
+  image         String?
+  role          Role      @default(USER)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  qrCodes       QRCode[]
+  qrAssets      QRAsset[]
+  activityLogs  ActivityLog[]
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+model QRCode {
+  id            String      @id @default(cuid())
+  type          QRType
+  content       String      @db.Text
+  qrImage       String      @db.Text  // Base64 data URL
+  fileURL       String?     @db.Text
+  fileName      String?
+  userEmail     String
+  user          User        @relation(fields: [userEmail], references: [email], onDelete: Cascade)
+  assetId       String?
+  asset         QRAsset?    @relation(fields: [assetId], references: [id], onDelete: SetNull)
+  createdAt     DateTime    @default(now())
+  
+  @@index([userEmail])
+  @@index([createdAt])
+  @@index([assetId])
+}
+
+model QRAsset {
+  id              String        @id @default(cuid())
+  userEmail       String
+  title           String?
+  type            QRType
+  content         String        @db.Text
+  qrImage         String        @db.Text
+  driveFileId     String?
+  driveFileName   String?
+  driveFileLink   String?
+  driveMimeType   String?
+  driveChecksum   String?
+  status          AssetStatus   @default(ACTIVE)
+  lastVerifiedAt  DateTime?
+  verificationNote String?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  user            User          @relation(fields: [userEmail], references: [email], onDelete: Cascade)
+  qrCodes         QRCode[]
+  driveSyncState  DriveSyncState?
+  activityLogs    ActivityLog[]
+
+  @@index([userEmail, createdAt])
+  @@index([status])
+}
+
+model Log {
+  id        String   @id @default(cuid())
+  level     LogLevel
+  message   String   @db.Text
+  userId    String?
+  userEmail String?
+  action    String?  // Action performed (e.g., "QR_GENERATED", "FILE_UPLOADED")
+  metadata  Json?    // Additional context data
+  ipAddress String?
+  userAgent String?
+  createdAt DateTime @default(now())
+
+  @@index([level])
+  @@index([userEmail])
+  @@index([action])
+  @@index([createdAt])
+}
+
+enum LogLevel {
+  DEBUG
+  INFO
+  WARN
+  ERROR
+  FATAL
+}
+
+enum AssetStatus {
+  ACTIVE
+  MISSING_FILE
+  NEED_REFRESH
+  DELETED
+}
+
+enum ActivityAction {
+  QR_CREATED
+  QR_REGENERATED
+  FILE_UPLOADED
+  FILE_SYNCED
+  FILE_DELETION
+  FILE_MISSING
+  TOKEN_REFRESH
+  ERROR
+}
+
+enum DriveStatus {
+  OK
+  NOT_FOUND
+  PERMISSION_DENIED
+  DIFFERENT_CHECKSUM
+}
+
+enum QRType {
+  TEXT
+  URL
+  EMAIL
+  PHONE
+  SMS
+  WHATSAPP
+  TELEGRAM
+  WIFI
+  BANK
+  YOUTUBE
+  INSTAGRAM
+  TIKTOK
+  LINKEDIN
+  GITHUB
+  FILE
+}
