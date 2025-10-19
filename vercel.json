@@ -5,20 +5,9 @@
   "framework": "nextjs",
   "regions": ["iad1"],
   "functions": {
-    "apps/web/src/app/api/**/*.ts": {
+    "src/app/api/**/*.ts": {
       "maxDuration": 60,
       "memory": 1024
     }
-  },
-  "headers": [
-    {
-      "source": "/api/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "no-store, must-revalidate"
-        }
-      ]
-    }
-  ]
+  }
 }
