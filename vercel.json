@@ -1,7 +1,7 @@
 {
-  "buildCommand": "corepack enable && corepack prepare pnpm@8.15.0 --activate && cd apps/web && pnpm build",
-  "devCommand": "corepack enable && corepack prepare pnpm@8.15.0 --activate && cd apps/web && pnpm dev",
-  "installCommand": "corepack enable && corepack prepare pnpm@8.15.0 --activate && pnpm install",
+  "buildCommand": "pnpm --filter web build",
+  "devCommand": "pnpm --filter web dev",
+  "installCommand": "pnpm install",
   "framework": "nextjs",
   "outputDirectory": "apps/web/.next",
   "regions": ["iad1"],
