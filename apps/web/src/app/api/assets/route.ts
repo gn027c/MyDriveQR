@@ -42,7 +42,7 @@ export async function GET(request: NextRequest) {
     const skip = (page - 1) * pageSize;
 
     const [records, total] = await Promise.all([
-      (prisma as any).qRCode.findMany({
+      prisma.qRCode.findMany({
         where,
         orderBy: {
           createdAt: 'desc',
@@ -59,7 +59,7 @@ export async function GET(request: NextRequest) {
         skip,
         take: pageSize,
       }),
-      (prisma as any).qRCode.count({ where }),
+      prisma.qRCode.count({ where }),
     ]);
 
     let items = records.map((item: any) => ({
@@ -107,7 +107,7 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ error: 'Thiếu mã QR cần xóa' }, { status: 400 });
     }
 
-    const qrCode = await (prisma as any).qRCode.findUnique({
+    const qrCode = await prisma.qRCode.findUnique({
       where: { id },
       select: { id: true, userEmail: true },
     });
@@ -116,7 +116,7 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ error: 'Không tìm thấy QR code' }, { status: 404 });
     }
 
-    await (prisma as any).qRCode.delete({ where: { id } });
+    await prisma.qRCode.delete({ where: { id } });
 
     return NextResponse.json({ success: true });
   } catch (error) {

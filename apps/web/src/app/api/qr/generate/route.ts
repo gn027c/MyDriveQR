@@ -213,6 +213,23 @@ export async function POST(request: NextRequest) {
       ? content
       : JSON.stringify(content);
 
+    // Ensure user exists in database before creating QR code
+    const existingUser = await prisma.user.findUnique({
+      where: { email: currentSession.user.email },
+      select: { id: true, email: true },
+    });
+
+    if (!existingUser) {
+      // Create user record if it doesn't exist (for NextAuth users)
+      await prisma.user.create({
+        data: {
+          email: currentSession.user.email,
+          name: currentSession.user.name || null,
+          image: currentSession.user.image || null,
+        },
+      });
+    }
+
     // Save to database
     const qrCode = await prisma.qRCode.create({
       data: {

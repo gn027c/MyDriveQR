@@ -23,7 +23,7 @@ export async function GET(request: NextRequest) {
     const offset = parseInt(searchParams.get('offset') || '0');
 
     // Fetch logs for the current user
-    const logs = await (prisma as any).log.findMany({
+    const logs = await prisma.log.findMany({
       where: {
         userEmail: session.user.email,
       },
