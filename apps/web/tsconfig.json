@@ -1,6 +1,7 @@
 {
   "extends": "@qr-uploader/typescript-config/nextjs.json",
   "compilerOptions": {
+    "jsx": "preserve",
     "plugins": [
       {
         "name": "next"
