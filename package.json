@@ -1,8 +1,8 @@
 {
-  "name": "qr-uploader",
+  "name": "gnqr",
   "version": "1.0.0",
   "private": true,
-  "description": "Secure Personal QR Code Generator with Google Drive Integration",
+  "description": "Công cụ tạo QR cá nhân của gn027c tích hợp GGDrive",
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build",
