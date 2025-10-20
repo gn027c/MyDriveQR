@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { signOut } from 'next-auth/react';
+import Image from 'next/image';
 import { Upload, FileText, QrCode, LinkIcon, RefreshCw } from 'lucide-react';
 import { Button, Card, CardContent, CardHeader, CardTitle, FileUpload } from '@qr-uploader/ui';
 import { useAuthRedirect } from '@/lib/auth-hook';
@@ -236,7 +237,7 @@ export default function UploadsPage() {
                 <div className="space-y-4">
                   <div className="flex justify-center">
                     <div className="p-4 bg-white border-2 border-gray-200 rounded-lg">
-                      <img
+                      <Image
                         src={result.qrCode}
                         alt="QR code"
                         width={256}
